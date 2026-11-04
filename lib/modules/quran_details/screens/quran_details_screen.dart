@@ -20,8 +20,6 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
       readFile(widget.sura.id);
     }
     return Scaffold(
-
-      
       backgroundColor: AppColors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -31,91 +29,96 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: Stack(
           children: [
-            Row(
+            Positioned(
+                bottom: 0,
+                child: Image.asset("assets/images/footer.png")),
+            Column(
               children: [
-                Expanded(
-
-
-
-                  
-                    child: Image.asset("assets/images/img_left_corner.png")),
-                Expanded(
-                  flex: 2,
-                  child: Center(
-                    child: Text(
-                      widget.sura.suraNameAr,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.gold,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Image.asset("assets/images/img_left_corner.png"),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Text(
+                          widget.sura.suraNameAr,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.gold,
+                          ),
+                        ),
                       ),
+                    ),
+                    Expanded(
+                      child: Image.asset("assets/images/img_right_corner.png"),
+                    ),
+                  ],
+                ),
+
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text.rich(
+                      TextSpan(
+                        children: suraList.map((e) {
+                          int index = suraList.indexOf(e);
+                          return TextSpan(
+                            text: "$e[${index + 1}] ",
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Center(child: Text(e));
+                                  },
+                                );
+                              },
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.gold,
+                              fontWeight: FontWeight.w600,
+                              height: 2.2,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      textDirection: TextDirection.rtl,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Image.asset("assets/images/img_right_corner.png"),
-                ),
+
+                // Expanded(
+                //   child: ListView.builder(
+                //     itemCount: suraList.length,
+                //     itemBuilder: (context, index) {
+                //       return Container(
+                //         margin: EdgeInsets.all(4),
+                //         padding: EdgeInsets.all(8),
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(15),
+                //           border: Border.all(color: AppColors.gold),
+                //         ),
+                //         child: Center(
+                //           child: Text(
+                //             suraList[index] + "[${index + 1}]",
+                //             style: TextStyle(
+                //               fontSize: 18,
+                //               color: AppColors.gold,
+                //               fontWeight: FontWeight.w600,
+                //             ),
+                //             textDirection: TextDirection.rtl,
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
-
-
-            Expanded(
-              child: SingleChildScrollView(
-                child: Text.rich(TextSpan(
-                    children: suraList.map((e) {
-                      int index = suraList.indexOf(e);
-                      return TextSpan(
-                        text: "$e[${index + 1}] ",
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            showModalBottomSheet(
-                              context: context, builder: (context) {
-                              return Center(child: Text(e),);
-                            },);
-                          },
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: AppColors.gold,
-                        fontWeight: FontWeight.w600,
-                          height: 2.2
-                      ),
-                      );
-                    },).toList()
-                ),
-                  textDirection: TextDirection.rtl,
-                ),
-              ),
-            )
-
-
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: suraList.length,
-            //     itemBuilder: (context, index) {
-            //       return Container(
-            //         margin: EdgeInsets.all(4),
-            //         padding: EdgeInsets.all(8),
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(15),
-            //           border: Border.all(color: AppColors.gold),
-            //         ),
-            //         child: Center(
-            //           child: Text(
-            //             suraList[index] + "[${index + 1}]",
-            //             style: TextStyle(
-            //               fontSize: 18,
-            //               color: AppColors.gold,
-            //               fontWeight: FontWeight.w600,
-            //             ),
-            //             textDirection: TextDirection.rtl,
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),
