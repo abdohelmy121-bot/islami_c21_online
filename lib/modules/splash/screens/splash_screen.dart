@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_c21_online/core/theme/app_colors.dart';
+import 'package:islamic_c21_online/modules/intro/screens/intro_screen.dart';
 import 'package:islamic_c21_online/modules/layout/screens/layout_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return LayoutScreen();
+            return IntroScreen();
           },
         ),
       );
